@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Foot measure</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/vendor/htmx/htmx.min.js"></script>
+  <script src="/capture.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Measure your feet</h1>
+    <p class="lede">One photo per foot. You only need a sheet of A4 or Letter paper.</p>
+
+    <ol class="setup">
+      <li>Lay the sheet flat on a hard floor that is darker than the paper.</li>
+      <li>Stand on it with one foot, toes pointing along the long edge. Keep the whole foot inside the sheet.</li>
+      <li>Hold the camera straight above, about 60–80&nbsp;cm up, with all four corners in view.</li>
+    </ol>
+
+    <form id="capture-form" hx-post="/measure" hx-target="#result" hx-encoding="multipart/form-data" hx-indicator="#busy">
+      <fieldset class="side">
+        <legend>Which foot?</legend>
+        <label><input type="radio" name="side" value="left" checked> Left</label>
+        <label><input type="radio" name="side" value="right"> Right</label>
+      </fieldset>
+
+      <div id="camera" hidden>
+        <div class="viewfinder">
+          <video id="video" playsinline muted autoplay></video>
+          <div class="guide" aria-hidden="true"><span>Fit the paper inside</span></div>
+        </div>
+        <button type="button" id="snap" class="primary">Take photo</button>
+      </div>
+      <canvas id="canvas" hidden></canvas>
+
+      <div class="actions">
+        <button type="button" id="start" class="primary">Open camera</button>
+        <label class="button">Upload a photo
+          <input type="file" id="photo" name="photo" accept="image/*" capture="environment" hidden>
+        </label>
+      </div>
+      <p id="camera-msg" class="note" role="status"></p>
+    </form>
+
+    <p id="busy" class="htmx-indicator" role="status">Measuring…</p>
+    <section id="result" aria-live="polite"></section>
+  </main>
+</body>
+</html>

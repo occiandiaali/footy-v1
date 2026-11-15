@@ -1,0 +1,12 @@
+<div class="card">
+  <h2><%= side === 'left' ? 'Left' : 'Right' %> foot</h2>
+  <img class="overlay" src="<%= r.overlay %>" alt="Top-down outline of your foot with length and ball-width lines">
+  <dl class="measures">
+    <dt>Length</dt><dd><%= r.measurements.lengthMm %> mm</dd>
+    <dt>Ball width</dt><dd><%= r.measurements.ballWidthMm %> mm</dd>
+    <dt>Heel width</dt><dd><%= r.measurements.heelWidthMm %> mm</dd>
+    <dt>Ball position</dt><dd><%= r.measurements.ballPositionPct %>% of length from heel</dd>
+  </dl>
+  <p class="note">Reference: <%= r.paper.type %> paper &middot; confidence <%= Math.round(r.confidence * 100) %>%
+    <% if (r.confidence < 0.6) { %> &mdash; retake with a steadier, more overhead shot for a better result.<% } %></p>
+</div>
